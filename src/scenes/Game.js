@@ -14,7 +14,8 @@ export default class Game extends Phaser.Scene {
 		super('game');
 	}
 
-    init() {
+    init({language}) {
+        this.language = language;
         this.#cursors = this.input.keyboard.createCursorKeys();
 		this.#obstacles = new ObstaclesController();
 		this.#snowmen = [];
@@ -27,7 +28,6 @@ export default class Game extends Phaser.Scene {
 
     preload() {
 		//precarga de assets
-		this.load.atlas('penquin', 'assets/penquin.png', 'assets/penquin.json');
 		this.load.image('tiles', 'assets/sheet.png');
 		this.load.tilemapTiledJSON('tilemap', 'assets/game.json');
 
