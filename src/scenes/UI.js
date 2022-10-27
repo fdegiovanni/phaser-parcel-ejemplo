@@ -1,25 +1,31 @@
 import Phaser from "phaser";
+import { getPhrase } from "../services/translations";
 import { sharedInstance as events } from "./EventCenter";
+import keys from "../enums/keys";
 
 export default class UI extends Phaser.Scene {
   #starsLabel;
   #starsCollected = 0;
   #graphics;
   #lastHealth = 100;
+  #language;
+
+  #scoreText = keys.sceneGame.score;
 
   constructor() {
     super({ key: "ui" });
   }
 
-  init() {
+  init({ language }) {
     this.#starsCollected = 0;
+    this.#language = language;
   }
 
   create() {
     this.#graphics = this.add.graphics();
     this.setHealthBar(100);
 
-    this.starsLabel = this.add.text(10, 35, "Stars: 0", {
+    this.starsLabel = this.add.text(10, 35, `${getPhrase(this.#scoreText)}: 0`, {
       fontSize: "32px",
     });
 
@@ -67,6 +73,6 @@ export default class UI extends Phaser.Scene {
 
   handleStarCollected() {
     ++this.#starsCollected;
-    this.starsLabel.text = `Stars: ${this.#starsCollected}`;
+    this.starsLabel.text = `${getPhrase(this.#scoreText)}: ${this.#starsCollected}`;
   }
 }

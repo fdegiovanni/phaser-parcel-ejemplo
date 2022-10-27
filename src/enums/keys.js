@@ -9,7 +9,13 @@ const sceneInitialMenu = {
     howAreU: '¿Cómo estás?',
 };
 
+const sceneGameOver = {
+    gameOver: 'Perdiste',
+    retry: 'Jugar de nuevo',
+}
+
 export default {
     sceneGame,
     sceneInitialMenu,
+    sceneGameOver,
 };

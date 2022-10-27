@@ -283,7 +283,7 @@ export default class PlayerController {
     this.#sprite.setOnCollide(() => {});
 
     this.#scene.time.delayedCall(1500, () => {
-      this.#scene.scene.start("game-over");
+      this.#scene.scene.start("game-over", { language: this.#scene.language });
     });
   }
 

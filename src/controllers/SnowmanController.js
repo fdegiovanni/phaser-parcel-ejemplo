@@ -131,6 +131,10 @@ export default class SnowmanController {
 		this.#stateMachine.setState('dead');
 	}
 
+	destroy() {
+		events.off('snowman-stomped', this.handleStomped, this)
+	}
+
 	update(dt)
 	{
 		this.#stateMachine.update(dt)

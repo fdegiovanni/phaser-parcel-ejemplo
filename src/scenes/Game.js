@@ -6,9 +6,10 @@ import SnowmanController from "../controllers/SnowmanController";
 export default class Game extends Phaser.Scene {
   #cursors;
   #penquin;
-  #playerController;
+  playerController;
   #obstacles;
   #snowmen;
+  language;
 
   constructor() {
     super("game");
@@ -39,7 +40,7 @@ export default class Game extends Phaser.Scene {
 
   create() {
     //carga el menu de interfaz
-    this.scene.launch("ui");
+    this.scene.launch("ui", { language: this.language });
 
     /////////////////////////////////////////////////////////
     ////////////// INICIO DE ARMADO DE MAPA//////////////////

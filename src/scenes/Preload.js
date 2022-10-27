@@ -10,18 +10,17 @@ export default class Preload extends Phaser.Scene {
 
     preload(){
         this.#language = getLanguageConfig();
-        getTranslations(this.#language);
-
+        alert(this.#language)
+        
         this.load.atlas('penquin', 'assets/penquin.png', 'assets/penquin.json');
         this.load.image('sky', 'assets/space3.png')
         this.load.image('red', 'assets/red.png')
     }
 
     create(){
-        this.scene.start('menu', { language: this.#language })
-    }
-
-    async getTranslations(language){
-        await getTranslations(language)
+        getTranslations(
+            this.#language,
+            () => this.scene.start('menu', { language: this.#language }),
+        );
     }
 }

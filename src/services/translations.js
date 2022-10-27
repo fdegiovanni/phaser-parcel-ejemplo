@@ -4,18 +4,17 @@ const PROJECT_ID = '2';
 let translations = null;
 let language = ES_AR;
 
-export async function getTranslations(lang = language, callback) {
+export async function getTranslations(lang, callback) {
     localStorage.clear();
+    translations = null;
     language = lang;
     if (language === ES_AR) {
-        console.log(`FETCH TRANSLATIONS --- key = traduccion`);
-        return;
+        return callback ? callback() : false;
     }
 
     return await fetch(`https://traduci-la-strapi.herokuapp.com/api/translations/${PROJECT_ID}/${language}`)
     .then(response => response.json())
     .then(data => {
-        console.log(`FETCH TRANSLATIONS --- ${JSON.stringify(data)}`);
         localStorage.setItem('translations', JSON.stringify(data));
         translations = data;
         if(callback) callback()
@@ -24,7 +23,6 @@ export async function getTranslations(lang = language, callback) {
 
 export function getPhrase(key) {
     if (!translations) {
-        console.log("🚀 ~ file: translations.js ~ line 25 ~ getPhrase ~ translations", translations)
         const locals = localStorage.getItem('translations');
         translations = locals ? JSON.parse(locals) : null;
     }
@@ -59,7 +57,7 @@ export function getLanguageConfig() {
       vamos a implementar una logica que cubra ambos casos
     */
 
-    const path = window.location.pathname;
+    const path = window.location.pathname !== '/' ? window.location.pathname : null;
     const params = new URL(window.location.href).searchParams;
     const queryLang = params.get('lang');
 
